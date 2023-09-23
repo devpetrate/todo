@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/logo.png" />
+
+    <title>DevPetate Todo app</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+      :root {
+        /* Primary */
+        --BrightBlue: hsl(220, 98%, 61%);
+        --CheckBackground: linear-gradient(#57ddff, #c058f3);
+        /* Light Theme */
+        --VeryLightGray: hsl(0, 0%, 98%);
+        --VeryLightGrayishBlue: hsl(236, 33%, 92%);
+        --LightGrayishBlue: hsl(233, 11%, 84%);
+        --DarkGrayishBlue: hsl(236, 9%, 61%);
+        --VeryDarkGrayishBlue: hsl(235, 19%, 35%);
+        /* Dark Theme */
+        --VeryDarkBlue: hsl(235, 21%, 11%);
+        --VeryDarkDesaturatedBlue: hsl(235, 24%, 19%);
+        --LightGrayishBlue: hsl(234, 39%, 85%);
+        --LightGrayishBluehover: hsl(236, 33%, 92%);
+        --DarkGrayishBlue: hsl(234, 11%, 52%);
+        --VeryDarkGrayishBlue: hsl(233, 14%, 35%);
+        /* --VeryDarkGrayishBlue: hsl(237, 14%, 26%); */
+        /* Body Copy */
+        --Fontsize: 18px;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        height: 100vh;
+        width: 100vw;
+        background-color: var(--VeryDarkBlue);
+        font-family: "Josefin Sans", sans-serif;
+      }
+      .container {
+        height: 100vh;
+        width: 100vw;
+        position: relative;
+      }
+      .container > img {
+        width: 100vw;
+        height: 35vh;
+      }
+      .todocontainer {
+        background-color: transparent;
+        height: 100vh;
+        width: 30rem;
+        position: absolute;
+        top: 0;
+        left: calc(50% - 15rem);
+        padding: 3rem 24px;
+      }
+      /* Header styles */
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        margin: 2rem 0;
+      }
+      header h1 {
+        letter-spacing: 10px;
+        font-size: 40px;
+        color: var(--VeryLightGray);
+      }
+      .modeswitch {
+        cursor: pointer;
+        padding: 5px;
+      }
+      header img:first-of-type {
+        display: none;
+      }
+
+      /* inputed task styles */
+      .inputcontainer {
+        width: 100%;
+        background-color: var(--VeryDarkDesaturatedBlue);
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 1rem 0;
+      }
+      .round {
+        display: inline-block;
+        width: 22px;
+        height: 22px;
+        border: 2px solid var(--VeryDarkGrayishBlue);
+        padding: 3px 5px;
+        border-radius: 50%;
+        margin: 15px 0 15px 20px;
+        cursor: pointer;
+      }
+      .round img {
+        visibility: hidden;
+      }
+      .taskcontainer .round:hover {
+        border-top: 2px solid #57ddff;
+        border-bottom: 2px solid #c058f3;
+        border-left: 2px solid #c058f3;
+        border-right: 2px solid #57ddff;
+        /* background:var(--CheckBackground); */
+      }
+      /* .round:hover img {
+        visibility: visible;
+      } */
+      .inputcontainer input {
+        width: 100%;
+        border: none;
+        padding: 5px;
+        font-family: "Josefin Sans", sans-serif;
+        background-color: inherit;
+        caret-color: var(--BrightBlue);
+        color: var(--LightGrayishBlue);
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .inputcontainer input:focus {
+        border: none;
+        outline: none;
+      }
+      .inputcontainer input::placeholder {
+        font-weight: bold;
+        color: var(--DarkGrayishBlue);
+        font-family: "Josefin Sans", sans-serif;
+      }
+
+      /* task container style */
+      .taskcontainer {
+        width: 100%;
+        background-color: var(--VeryDarkDesaturatedBlue);
+        border-radius: 5px;
+        /* padding: 15px 20px; */
+        /* border-bottom: 2px solid var(--VeryDarkGrayishBlue); */
+        box-shadow: 2px 5px 15px 3px rgba(0, 0, 0, 0.1);
+      }
+      .singletask {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      .singletask p {
+        background-color: inherit;
+        width: 100%;
+        font-weight: bold;
+        color: var(--LightGrayishBlue);
+        cursor: pointer;
+      }
+      /* .singletask p:hover {
+        text-decoration: line-through;
+        color: var(--VeryDarkGrayishBlue);
+      } */
+      .singletask img {
+        margin-right: 15px;
+        cursor: pointer;
+      }
+      hr {
+        border: 1px solid var(--VeryDarkGrayishBlue);
+      }
+      .taskdash {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 20px;
+        font-size: 12px;
+        color: var(--VeryDarkGrayishBlue);
+      }
+      .taskdash p:nth-child(2),
+      .taskdash p:nth-child(3),
+      .taskdash p:nth-child(4),
+      .taskdash p:nth-child(5),
+      .mobiletask p {
+        &:hover {
+          color: var(--LightGrayishBlue);
+        }
+        cursor: pointer;
+      }
+
+      .taskdash p:first-of-type {
+        margin-right: 50px;
+      }
+      .taskdash p:nth-child(4) {
+        margin-right: 20px;
+      }
+      .mobiletask {
+        display: none;
+      }
+
+      /* lastword style */
+      .lastword {
+        height: 30px;
+        text-align: center;
+        margin-top: 2rem;
+        color: var(--VeryDarkGrayishBlue);
+      }
+
+      @media (width<=500px) {
+        .todocontainer {
+          width: 25rem;
+          height: 100vh;
+          left: calc(50% - 12.5rem);
+          padding: 1rem 24px;
+        }
+        .container > img {
+          height: 25vh;
+          /* content: url(./images/bg-mobile-dark.jpg); */
+        }
+        .taskdash p:nth-child(2),
+        .taskdash p:nth-child(3),
+        .taskdash p:nth-child(4) {
+          display: none;
+        }
+        .mobiletask {
+          display: flex;
+          margin: 1rem 0;
+          justify-content: space-between;
+          background-color: var(--VeryDarkDesaturatedBlue);
+          padding: 15px 70px;
+          border-radius: 5px;
+          color: var(--VeryDarkGrayishBlue);
+          box-shadow: 2px 5px 15px 4px rgba(0, 0, 0, 0.1);
+        }
+      }
+      /* light mode style */
+      /* body {
+        background-color: var(--VeryLightGray);
+      }
+      .container > img {
+        content: url(./images/bg-desktop-light.jpg);
+      }
+      header img:last-of-type {
+        display: none;
+      }
+      header img:first-of-type {
+        display: inline;
+      }
+      .inputcontainer {
+        background-color: var(--VeryLightGray);
+      }
+      .taskcontainer {
+        background-color: var(--VeryLightGray);
+      }
+      .mobiletask {
+        background-color: var(--VeryLightGray);
+      }
+      .singletask p {
+        color: var(--VeryDarkGrayishBlue);
+      }
+      .taskdash p:nth-child(2),
+      .taskdash p:nth-child(3),
+      .taskdash p:nth-child(4),
+      .taskdash p:nth-child(5),
+      .mobiletask p {
+        &:hover {
+          color: var(--VeryDarkDesaturatedBlue);
+          font-weight: bolder;
+        }
+        &:active {
+          color: var(--BrightBlue);
+        }
+      }
+      .inputcontainer input {
+        color: var(--VeryDarkGrayishBlue);
+      }
+      .round {
+        border: 2px solid var(--LightGrayishBlue);
+      }
+      @media (width<=500px) {
+        .container > img {
+          content: url(./images/bg-mobile-light.jpg);
+        }
+      } */
+
+      /* .singletask p:hover {
+        color: var(--LightGrayishBlue);
+      } */
+
+      /* ACTIVE style */
+      /* .taskcontainer .round:hover {
+        background:var(--CheckBackground);
+      }
+      .round:hover img {
+        visibility: visible;
+      }
+      .singletask p:hover {
+        text-decoration: line-through;
+        color: var(--VeryDarkGrayishBlue);
+      }
+      .taskdash p:nth-child(2),
+      .taskdash p:nth-child(3),
+      .taskdash p:nth-child(4),
+      .taskdash p:nth-child(5),
+      .mobiletask p {
+        &:active {
+          color: var(--BrightBlue);
+        }
+      } */
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img id="bgimg" src="./images/bg-desktop-dark.jpg" alt="" />
+      <div class="todocontainer">
+        <header>
+          <h1>TODO</h1>
+          <div class="modeswitch">
+            <img id="moon" src="./images/icon-moon.svg" alt="" />
+            <img id="sun" src="./images/icon-sun.svg" alt="" />
+          </div>
+        </header>
+        <div class="inputcontainer">
+          <span class="round"> <img src="./images/icon-check.svg" alt="" width="10px" /></span>
+          <input type="text" name="" id="" placeholder="Create a new todo..." />
+        </div>
+        <div class="taskcontainer">
+          <div class="singletask">
+            <span class="round"> <img src="./images/icon-check.svg" alt="" /></span>
+            <p class="inputedtask">David</p>
+            <img src="./images/icon-cross.svg" alt="" />
+          </div>
+          <hr />
+          <div class="singletask">
+            <span class="round"> <img src="./images/icon-check.svg" alt="" /></span>
+            <p class="inputedtask">David</p>
+            <img src="./images/icon-cross.svg" alt="" />
+          </div>
+          <hr />
+          <div class="singletask">
+            <span class="round"> <img src="./images/icon-check.svg" alt="" /></span>
+            <p class="inputedtask">David</p>
+            <img src="./images/icon-cross.svg" alt="" />
+          </div>
+          <hr />
+          <div class="singletask">
+            <span class="round"> <img src="./images/icon-check.svg" alt="" /></span>
+            <p class="inputedtask">David</p>
+            <img src="./images/icon-cross.svg" alt="" />
+          </div>
+          <hr />
+          <div class="singletask">
+            <span class="round"> <img src="./images/icon-check.svg" alt="" /></span>
+            <p class="inputedtask">David</p>
+            <img src="./images/icon-cross.svg" alt="" />
+          </div>
+          <hr />
+          <div class="singletask">
+            <span class="round"> <img src="./images/icon-check.svg" alt="" /></span>
+            <p class="inputedtask">David</p>
+            <img src="./images/icon-cross.svg" alt="" />
+          </div>
+          <hr />
+          <div class="taskdash">
+            <p class="itemleft">5 items left</p>
+            <p class="allitem">All</p>
+            <p class="activeitem">Active</p>
+            <p class="completitem">Completed</p>
+            <p class="clearitem">Clear Completed</p>
+          </div>
+        </div>
+        <div class="mobiletask">
+          <p class="alltem">All</p>
+          <p class="activeitem">Active</p>
+          <p class="completitem">Completed</p>
+        </div>
+        <div class="lastword">
+          <p>Drag and drop to reorder list</p>
+        </div>
+      </div>
+    </div>
+    <script src="bundle.js"></script>
+  </body>
+</html>
