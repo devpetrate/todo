@@ -94,7 +94,7 @@
       }
       .round {
         display: inline-block;
-        width: 22px;
+        width: 23px;
         height: 22px;
         border: 2px solid var(--VeryDarkGrayishBlue);
         padding: 3px 5px;
@@ -103,7 +103,9 @@
         cursor: pointer;
       }
       .round img {
-        visibility: hidden;
+        display: none;
+        margin: 0;
+        padding: 0;
       }
       .taskcontainer .round:hover {
         border-top: 2px solid #57ddff;
@@ -169,6 +171,9 @@
         border: 1px solid var(--VeryDarkGrayishBlue);
       }
       .taskdash {
+        width: 100%;
+        background-color: var(--VeryDarkDesaturatedBlue);
+        border-radius: 0 0 5px 5px ;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -232,80 +237,6 @@
           box-shadow: 2px 5px 15px 4px rgba(0, 0, 0, 0.1);
         }
       }
-      /* light mode style */
-      /* body {
-        background-color: var(--VeryLightGray);
-      }
-      .container > img {
-        content: url(./images/bg-desktop-light.jpg);
-      }
-      header img:last-of-type {
-        display: none;
-      }
-      header img:first-of-type {
-        display: inline;
-      }
-      .inputcontainer {
-        background-color: var(--VeryLightGray);
-      }
-      .taskcontainer {
-        background-color: var(--VeryLightGray);
-      }
-      .mobiletask {
-        background-color: var(--VeryLightGray);
-      }
-      .singletask p {
-        color: var(--VeryDarkGrayishBlue);
-      }
-      .taskdash p:nth-child(2),
-      .taskdash p:nth-child(3),
-      .taskdash p:nth-child(4),
-      .taskdash p:nth-child(5),
-      .mobiletask p {
-        &:hover {
-          color: var(--VeryDarkDesaturatedBlue);
-          font-weight: bolder;
-        }
-        &:active {
-          color: var(--BrightBlue);
-        }
-      }
-      .inputcontainer input {
-        color: var(--VeryDarkGrayishBlue);
-      }
-      .round {
-        border: 2px solid var(--LightGrayishBlue);
-      }
-      @media (width<=500px) {
-        .container > img {
-          content: url(./images/bg-mobile-light.jpg);
-        }
-      } */
-
-      /* .singletask p:hover {
-        color: var(--LightGrayishBlue);
-      } */
-
-      /* ACTIVE style */
-      /* .taskcontainer .round:hover {
-        background:var(--CheckBackground);
-      }
-      .round:hover img {
-        visibility: visible;
-      }
-      .singletask p:hover {
-        text-decoration: line-through;
-        color: var(--VeryDarkGrayishBlue);
-      }
-      .taskdash p:nth-child(2),
-      .taskdash p:nth-child(3),
-      .taskdash p:nth-child(4),
-      .taskdash p:nth-child(5),
-      .mobiletask p {
-        &:active {
-          color: var(--BrightBlue);
-        }
-      } */
     </style>
   </head>
   <body>
@@ -330,44 +261,20 @@
             <img src="./images/icon-cross.svg" alt="" />
           </div>
           <hr />
-          <div class="singletask">
+          <div class="singletask" draggable="true">
             <span class="round"> <img src="./images/icon-check.svg" alt="" /></span>
             <p class="inputedtask">David</p>
             <img src="./images/icon-cross.svg" alt="" />
           </div>
           <hr />
-          <div class="singletask">
-            <span class="round"> <img src="./images/icon-check.svg" alt="" /></span>
-            <p class="inputedtask">David</p>
-            <img src="./images/icon-cross.svg" alt="" />
-          </div>
-          <hr />
-          <div class="singletask">
-            <span class="round"> <img src="./images/icon-check.svg" alt="" /></span>
-            <p class="inputedtask">David</p>
-            <img src="./images/icon-cross.svg" alt="" />
-          </div>
-          <hr />
-          <div class="singletask">
-            <span class="round"> <img src="./images/icon-check.svg" alt="" /></span>
-            <p class="inputedtask">David</p>
-            <img src="./images/icon-cross.svg" alt="" />
-          </div>
-          <hr />
-          <div class="singletask">
-            <span class="round"> <img src="./images/icon-check.svg" alt="" /></span>
-            <p class="inputedtask">David</p>
-            <img src="./images/icon-cross.svg" alt="" />
-          </div>
-          <hr />
-          <div class="taskdash">
-            <p class="itemleft">5 items left</p>
+      </div>
+      <div class="taskdash">
+            <p class="itemleft">0 items left</p>
             <p class="allitem">All</p>
             <p class="activeitem">Active</p>
             <p class="completitem">Completed</p>
             <p class="clearitem">Clear Completed</p>
           </div>
-        </div>
         <div class="mobiletask">
           <p class="alltem">All</p>
           <p class="activeitem">Active</p>
@@ -376,7 +283,6 @@
         <div class="lastword">
           <p>Drag and drop to reorder list</p>
         </div>
-      </div>
     </div>
     <script src="bundle.js"></script>
   </body>
